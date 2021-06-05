@@ -156,8 +156,10 @@ typedef struct	s_all{
 	t_img	img;
 	t_ivec	i;
 	t_ivec	s;
+	t_ivec	mouse;
 	t_vec	c;
 	t_vec	clr;
+	t_vec	ini;
 	int		flag;
 	int		ac;
 	int		e;
