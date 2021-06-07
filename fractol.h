@@ -129,6 +129,8 @@
 
 # endif
 
+typedef	int (*t_func)();
+
 typedef struct s_ivec{
 	int		x;
 	int		y;
@@ -160,6 +162,7 @@ typedef struct	s_all{
 	t_vec	c;
 	t_vec	clr;
 	t_vec	ini;
+	t_func	func;
 	int		flag;
 	int		ac;
 	int		e;
@@ -172,5 +175,6 @@ t_ivec		ivec_mul(t_ivec a, int b);
 t_vec		vec_mul(t_vec a, double b);
 char		*ft_strnotin(char *str, char *set);
 int			ft_error(char *s, int e);
+char		*ft_strstart(const char *pf, const char *str, char c);
 
 #endif

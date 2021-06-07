@@ -6,41 +6,45 @@
 /*   By: subaru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 20:57:38 by subaru            #+#    #+#             */
-/*   Updated: 2021/04/19 17:15:10 by subaru           ###   ########.fr       */
+/*   Updated: 2021/06/07 12:41:35 by subaru           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "fractol.h"
 
-int		ft_error(char *s, int e)
-{
-	int	r;
-
-	r = ft_putendl_fd("ERROR", 2);
-	if (errno || e)
-		perror(strerror(e));
-	return (r + ft_putendl_fd(s, 2));
-}
-
-char	*ft_strnotin(char *str, char *set)
-{
-	while (ft_strchr(set, *str))
-		str++;
-	return (!!(*str) * str);
-}
-
-size_t	ft_trimlen(char const *s, char const *set)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
 
-	if (!s)
-		return (0);
 	i = 0;
-	while (*s && ft_strchr(set, *s))
-		s++;
-	while (s[i])
+	while (i < n)
+	{
+		if (s1[i] != s2[i] || s1[i] == '\0' || s2[i] == '\0')
+			return ((int)((unsigned char)s1[i] - (unsigned char)s2[i]));
 		i++;
-	while (0 < i && ft_strchr(set, s[i - 1]))
-		i--;
-	return (i);
+	}
+	return (0);
+}
+
+char	*ft_strstart(const char *pf, const char *str, char c)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (pf && str)
+	{
+		while (pf[i] && pf[i] == c)
+			i++;
+		j = 0;
+		while (str[j] && pf[i + j] && pf[i + j] == str[j] && pf[i + j] != c)
+			j++;
+		if (j && pf[i + j] == c && pf[i + j - 1] == str[j - 1])
+			return ((char *)&pf[i]);
+		if (pf[i] == '\0')
+			return (NULL);
+		while (pf[i] && pf[i] != c)
+			i++;
+	}
+	return (NULL);
 }

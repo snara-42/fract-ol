@@ -6,7 +6,7 @@
 /*   By: snara <snara@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 00:02:54 by snara             #+#    #+#             */
-/*   Updated: 2021/06/07 11:38:17 by subaru           ###   ########.fr       */
+/*   Updated: 2021/06/07 12:50:10 by subaru           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		f_brel(int b, int x, int y, t_all *d)
 
 int		f_kpre(int k, t_all *d)
 {
-	printf("kpre %d: %f %f\n", k, d->c.x, d->c.y);
+	printf("kpre %d: %f,%f %f+%fi\n", k, d->c.x, d->c.y, d->ini.x, d->ini.y);
 	if (k == K_ESC)
 		f_exit(d);
 	else if (k == K_A_D)
@@ -79,7 +79,10 @@ int		f_kpre(int k, t_all *d)
 	else if (k == K_A_L)
 		d->c.x -= d->s.x / d->c.z / 8;
 	else if (k == K_R)
+	{
 		d->c = (t_vec){d->s.x / DEFAULT / -2, d->s.y / DEFAULT / -2, DEFAULT};
+		d->ini = (t_vec){-0.8 * (d->flag == 2), 0.15 * (d->flag == 2), 0};
+	}
 	else if (k == K_A)
 		d->clr.x -= 30;
 	else if (k == K_D)
@@ -89,13 +92,13 @@ int		f_kpre(int k, t_all *d)
 	else if (k == K_S && 1 < d->c.z)
 		d->c = (t_vec){d->c.x - d->s.x / d->c.z / 2, d->c.y - d->s.y / d->c.z / 2, (d->c.z / ZOOM)};
 	else if (k == K_H)
-		d->ini.x -= 0.1;
+		d->ini.x -= 0.05;
 	else if (k == K_L)
-		d->ini.x += 0.01;
+		d->ini.x += 0.005;
 	else if (k == K_K)
-		d->ini.y -= 0.1;
+		d->ini.y -= 0.05;
 	else if (k == K_J)
-		d->ini.y += 0.01;
+		d->ini.y += 0.005;
 	f_loop(d);
 	return (0);
 }
@@ -136,7 +139,7 @@ int	calc_color(t_vec z, t_vec c, int max_i, double h)
 	}
 	if (i < max_i)
 	{
-		h = (int)(h + i * 1080 / max_i) % 360;
+		h = (int)(h + i * 720 / max_i) % 360;
 		clr = ((300 <= h || h < 60) * 0xff0000 + (60 <= h && h < 180) * 0xff00 + (180 <= h && h < 300) * 0xff)
 			| ((int)(0xff * (1 - fabs(fmod(h / 60, 2) - 1))) << ((int)h / 60 + 1) % 3 * 8);
 		return (clr);
@@ -155,10 +158,10 @@ int	f_loop(t_all *d)
 		x = -1;
 		while (++x < d->img.s.x)
 		{
-			if (!d->flag)
+			if (d->flag == 1)
 				(d->img.d)[y * d->img.s.x + x] = calc_color(d->ini, vec_scale((t_vec){x, y, 0}, d->c), 180, (int)d->clr.x);
-			else
-				(d->img.d)[y * d->img.s.x + x] = calc_color(vec_scale((t_vec){(double)x, (double)y, 0}, d->c), d->ini, 180, d->clr.x);
+			else if (d->flag == 2)
+				(d->img.d)[y * d->img.s.x + x] = calc_color(vec_scale((t_vec){x, y, 0}, d->c), d->ini, 180, d->clr.x);
 		}
 	}
 	mlx_put_image_to_window(d->mlx, d->win, d->img.img, 0, 0);
@@ -170,13 +173,12 @@ int	f_loop(t_all *d)
 int	init(int ac, char **av, t_all *d)
 {
 	errno = 0;
-	d->flag = (av[1][0] != '0');
 	d->ac = ac;
 	d->mlx = mlx_init();
 	d->s = (t_ivec){WIDTH, HEIGHT, 0};
 	d->c = (t_vec){WIDTH / DEFAULT / -2, HEIGHT / DEFAULT / -2, DEFAULT};
 	d->clr = (t_vec){0, 0, 0};
-	d->ini = (t_vec){-0.8 * d->flag, 0.15 * d->flag, 0};
+	d->ini = (t_vec){-0.8 * (d->flag == 2), 0.15 * (d->flag == 2), 0};
 	d->img.s = (t_ivec){WIDTH, HEIGHT, 0};
 	d->win = mlx_new_window(d->mlx, d->s.x, d->s.y, av[0]);
 	d->img.img = mlx_new_image(d->mlx, d->s.x, d->s.y);
@@ -188,12 +190,17 @@ int	init(int ac, char **av, t_all *d)
 int	main(int ac, char **av)
 {
 	static t_all	d;
+	const char	*s[] = {"0 ", "1 mandelbrot ", "2 julia ", "3 spiral ", NULL};
+	int			i;
 
-	if (ac < 2 && ft_error("usage: ./fractol [julia | mandelbrot]", 0))
+	i = 0;
+	while (ac >= 2 && s[++i])
+		if (ft_strstart(s[i], av[1], ' '))
+			d.flag = i;
+	if ((!d.flag) && printf("usage: %s [julia | mandelbrot | spiral]\n", av[0]))
 		return (0);
 	if (!init(ac, av, &d))
 		f_exit(&d);
-
 	mlx_hook(d.win, XE_KPRE, XM_KPRE, &f_kpre, &d);
 	mlx_hook(d.win, XE_KREL, XM_KREL, &f_krel, &d);
 	mlx_hook(d.win, XE_BPRE, XM_BPRE, &f_bpre, &d);

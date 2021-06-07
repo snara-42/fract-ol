@@ -1,6 +1,7 @@
 NAME = fractol
 
-SRCS = srcs/main.c
+SRCS = srcs/main.c \
+	   srcs/util_s.c
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 
