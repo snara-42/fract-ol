@@ -6,7 +6,7 @@
 /*   By: snara <snara@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 00:02:54 by snara             #+#    #+#             */
-/*   Updated: 2021/05/31 20:47:13 by subaru           ###   ########.fr       */
+/*   Updated: 2021/06/01 01:23:08 by subaru           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	calc_color(t_vec z, t_vec c, int max_i)
 		z = (t_vec){z.x * z.x - z.y * z.y + c.x, 2 * z.x * z.y + c.y, z.z};
 	}
 	if (i < max_i)
-		return (0x000401 * i);
+		return (1 * (max_i - i));
 	return (0x0);
 }
 
@@ -131,7 +131,7 @@ int	f_loop(t_all *d)
 		x = -1;
 		while (++x < d->img.s.x)
 		{
-			if (0)
+			if (1)
 				(d->img.d)[y * d->img.s.x + x] = calc_color((t_vec){0, 0, 0}, vec_scale((t_vec){(double)x, (double)y, 0}, d->c), 128);
 			else
 				(d->img.d)[y * d->img.s.x + x] = calc_color(vec_scale((t_vec){(double)x, (double)y, 0}, d->c), (t_vec){-0.8, 0.156, 0}, 128);
