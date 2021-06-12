@@ -42,8 +42,8 @@
 #  define B_SL	6
 #  define B_SR	7
 #  define K_ENT	65293
-#  define K_LSH	65305
-#  define K_RSH	65306
+#  define K_LSH	65505
+#  define K_RSH	65506
 #  define K_ESC	65307
 #  define K_A_L	65361
 #  define K_A_U	65362
@@ -125,11 +125,14 @@
 #  define K_Y 16
 #  define K_Z 6
 #  define K_SP	49
+#  define K_ENT	52
+#  define K_LSH	56
+#  define K_RSH	60
 #  define K_ESC	53
 
 # endif
 
-typedef	int (*t_func)();
+typedef int	(*t_func)();
 
 typedef struct s_ivec{
 	int		x;
@@ -143,7 +146,7 @@ typedef struct s_vec{
 	double	z;
 }			t_vec;
 
-typedef struct	s_img{
+typedef struct s_img{
 	void	*img;
 	int		*d;
 	t_ivec	s;
@@ -152,7 +155,7 @@ typedef struct	s_img{
 	int		end;
 }	t_img;
 
-typedef struct	s_all{
+typedef struct s_all{
 	void	*mlx;
 	void	*win;
 	t_img	img;
@@ -161,12 +164,21 @@ typedef struct	s_all{
 	t_ivec	mouse;
 	t_vec	c;
 	t_vec	clr;
+	t_vec	key;
 	t_vec	ini;
 	t_func	func;
-	int		flag;
+	int		fl;
 	int		ac;
 	int		e;
 }			t_all;
+
+typedef enum e_fractol{
+	undefined,
+	mandelbrot,
+	julia,
+	burning,
+	spiral
+}	t_e_fractol;
 
 t_ivec		ivec_add(t_ivec a, t_ivec b);
 t_ivec		ifvec_add(t_ivec a, t_vec b);
@@ -176,5 +188,6 @@ t_vec		vec_mul(t_vec a, double b);
 char		*ft_strnotin(char *str, char *set);
 int			ft_error(char *s, int e);
 char		*ft_strstart(const char *pf, const char *str, char c);
+int			int_find(int n, int *a, int s);
 
 #endif

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "fractol.h"
 
 t_ivec	ivec_add(t_ivec a, t_ivec b)
 {
