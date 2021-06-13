@@ -6,7 +6,7 @@
 /*   By: snara <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/13 07:04:09 by snara             #+#    #+#             */
-/*   Updated: 2021/06/13 19:40:43 by snara            ###   ########.fr       */
+/*   Updated: 2021/06/14 03:15:23 by snara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,12 @@ int	f_kpre(int k, t_all *d)
 		d->c = (t_vec){d->s.x / -2. / DEFAULT, d->s.y / -2. / DEFAULT, DEFAULT};
 	else if (d->key.x == 0.1 && k == K_R)
 		d->n = d->ini;
-	return (printf("p %d:%f,%f %f%+fi %f\n", k, d->c.x, d->c.y, d->n.x, d->n.y,
-			d->n.z) && f_loop(d));
+	return (printf("p %d:%f,%f \n", k, d->c.x, d->c.y) && f_loop(d));
 }
 
 int	f_krel(int k, t_all *d)
 {
-	printf("r %d:%f %f %f\n", k, d->c.x, d->c.y, d->key.x);
+	printf("r %d:%f,%f %f%+fi %f\n", k, d->c.x, d->c.y, d->n.x, d->n.y, d->n.z);
 	if (k == K_ESC)
 		f_exit(d);
 	else if (k == K_LSH || k == K_RSH)
@@ -79,21 +78,10 @@ int	f_brel(int b, int x, int y, t_all *d)
 	return (0);
 }
 
-int	f_loop(t_all *d)
+int	f_moti(int x, int y, t_all *d)
 {
-	int	x;
-	int	y;
-
-	y = -1;
-	while (++y < d->img.s.y)
-	{
-		x = -1;
-		while (++x < d->img.s.x)
-		{
-			(d->img.d)[y * d->img.s.x + x] = d->func(d->n, vec_scale(
-						(t_vec){x, y, 0}, d->c), (int []){d->n.z, d->clr.x});
-		}
-	}
-	mlx_put_image_to_window(d->mlx, d->win, d->img.img, 0, 0);
+	d->n = (t_vec){x / (d->s.x / 4.) - 2, -y / (d->s.y / 4.) + 2, d->n.z};
+	printf("m %d,%d %f%+fi\n", x, y, d->n.x, d->n.y);
+	f_loop(d);
 	return (0);
 }

@@ -6,7 +6,7 @@ SRCS = \
 	srcs/util_n.c \
 	srcs/vec.c \
 	srcs/hook.c \
-	srcs/init.c
+	srcs/calc.c
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)

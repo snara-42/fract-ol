@@ -20,6 +20,8 @@
 # define XE_MOTI	6
 # define XE_ENTER	7
 # define XE_LEAVE	8
+# define XE_FOCI	9
+# define XE_FOCO	10
 # define XE_DEST	17
 # define XE_CLIE	33
 
@@ -30,6 +32,9 @@
 # define XM_ENTER	0x10
 # define XM_LEAVE	0x20
 # define XM_MOTI	0x40
+# define XM_MOTH	0x80
+# define XM_EXPO	0x8000
+# define XM_VISI	0x10000
 # define XM_STRU	0x20000
 # define XM_ALL		0xfffffff
 
@@ -157,19 +162,19 @@ typedef struct s_vec{
 	double	z;
 }			t_vec;
 
-typedef struct s_img{
-	void	*img;
+typedef struct s_im{
+	void	*im;
 	int		*d;
 	t_ivec	s;
-	int		bpp;
-	int		lsz;
-	int		end;
-}	t_img;
+	int		b;
+	int		l;
+	int		e;
+}	t_im;
 
 typedef struct s_all{
 	void	*mlx;
 	void	*win;
-	t_img	img;
+	t_im	im;
 	t_ivec	i;
 	t_ivec	s;
 	t_ivec	mouse;
@@ -189,6 +194,7 @@ typedef enum e_fractol{
 	mandelbrot,
 	julia,
 	burning,
+	tricorn,
 	spiral
 }	t_e_fractol;
 
@@ -211,7 +217,13 @@ int		f_kpre(int k, t_all *d);
 int		f_krel(int k, t_all *d);
 int		f_bpre(int b, int x, int y, t_all *d);
 int		f_brel(int b, int x, int y, t_all *d);
+int		f_moti(int x, int y, t_all *d);
 int		f_exit(t_all *d);
 int		init(int ac, char **av, t_all *d);
+int		c_man(t_vec z, t_vec c, int p[2]);
+int		c_jul(t_vec c, t_vec z, int p[2]);
+int		c_bur(t_vec z, t_vec c, int p[2]);
+int		c_tri(t_vec z, t_vec c, int p[2]);
+int		c_spi(t_vec c, t_vec z, int p[2]);
 
 #endif
