@@ -5,3 +5,4 @@ fractol
 .*
 *.a
 libft/
+~.gitignore
