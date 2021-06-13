@@ -1,16 +1,19 @@
 NAME = fractol
 
-SRCS = srcs/main.c \
-	   srcs/util_s.c \
-	   srcs/util_n.c \
-	   srcs/vec.c
+SRCS = \
+	srcs/main.c \
+	srcs/util_s.c \
+	srcs/util_n.c \
+	srcs/vec.c \
+	srcs/hook.c \
+	srcs/init.c
 
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 
 RM = rm -f
 CC = gcc
-CFLAGS = -Wall -Wextra #-Werror
+CFLAGS = -Wall -Wextra -Werror
 INCS = -I./ -I$(LMLXPATH)
 LFT = 
 

@@ -6,11 +6,12 @@
 /*   By: subaru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 20:57:38 by subaru            #+#    #+#             */
-/*   Updated: 2021/06/07 12:41:35 by subaru           ###   ########.fr       */
+/*   Updated: 2021/06/13 07:55:27 by snara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+//#include "fractol.h"
+#include <unistd.h>
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

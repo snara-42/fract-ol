@@ -132,6 +132,12 @@
 
 # endif
 
+# define WIDTH	512
+# define HEIGHT	512
+# define MOVE 16
+# define DEFAULT 128
+# define ZOOM 2
+
 typedef int	(*t_func)();
 
 typedef struct s_ivec{
@@ -166,6 +172,7 @@ typedef struct s_all{
 	t_vec	clr;
 	t_vec	key;
 	t_vec	ini;
+	t_vec	n;
 	t_func	func;
 	int		fl;
 	int		ac;
@@ -180,14 +187,26 @@ typedef enum e_fractol{
 	spiral
 }	t_e_fractol;
 
-t_ivec		ivec_add(t_ivec a, t_ivec b);
-t_ivec		ifvec_add(t_ivec a, t_vec b);
-t_vec		vec_add(t_vec a, t_vec b);
-t_ivec		ivec_mul(t_ivec a, int b);
-t_vec		vec_mul(t_vec a, double b);
-char		*ft_strnotin(char *str, char *set);
-int			ft_error(char *s, int e);
-char		*ft_strstart(const char *pf, const char *str, char c);
-int			int_find(int n, int *a, int s);
+t_ivec	ivec_add(t_ivec a, t_ivec b);
+t_ivec	ifvec_add(t_ivec a, t_vec b);
+t_vec	vec_add(t_vec a, t_vec b);
+t_ivec	ivec_mul(t_ivec a, int b);
+t_vec	vec_mul(t_vec a, double b);
+t_vec	vec_scale(t_vec p, t_vec c);
+
+char	*ft_strchr(const char *s, int c);
+char	*ft_strstart(const char *pf, const char *str, char c);
+char	*ft_strchr(const char *s, int c);
+int		ft_atoi_p(char *s, int *n);
+int		int_find(int n, int *a, int s);
+int		hsv_rgb(int h, int s, int v);
+
+int		f_loop(t_all *d);
+int		f_kpre(int k, t_all *d);
+int		f_krel(int k, t_all *d);
+int		f_bpre(int b, int x, int y, t_all *d);
+int		f_brel(int b, int x, int y, t_all *d);
+int		f_exit(t_all *d);
+int		init(int ac, char **av, t_all *d);
 
 #endif
