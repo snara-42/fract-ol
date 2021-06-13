@@ -41,6 +41,7 @@
 #  define B_SU	5
 #  define B_SL	6
 #  define B_SR	7
+#  define K_SP	32
 #  define K_ENT	65293
 #  define K_LSH	65505
 #  define K_RSH	65506
@@ -137,6 +138,10 @@
 # define MOVE 16
 # define DEFAULT 128
 # define ZOOM 2
+# define T_H1 "\e[92mspace: help\narrow: move\nSW: zoom\nAD: color shift\n"
+# define T_H2 "UI: iteration\nHL: real\nJK: imaginary\e[0m\n"
+# define T_U1 "[mandelbrot | julia | burningship | spiral] "
+# define T_U2 "[width height (<=1920)]\n"
 
 typedef int	(*t_func)();
 
@@ -197,7 +202,7 @@ t_vec	vec_scale(t_vec p, t_vec c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strstart(const char *pf, const char *str, char c);
 char	*ft_strchr(const char *s, int c);
-int		ft_atoi_p(char *s, int *n);
+int		ft_atoui_p(char *s, int *n);
 int		int_find(int n, int *a, int s);
 int		hsv_rgb(int h, int s, int v);
 

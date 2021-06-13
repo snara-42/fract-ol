@@ -6,7 +6,7 @@
 /*   By: snara <snara@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 00:02:54 by snara             #+#    #+#             */
-/*   Updated: 2021/06/13 08:03:23 by snara            ###   ########.fr       */
+/*   Updated: 2021/06/13 19:46:27 by snara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	main(int ac, char **av)
 	while (ac >= 2 && s[++i])
 		if (ft_strstart(s[i], av[1], ' '))
 			d.fl = i;
-	if ((!d.fl || (ac != 2 && ac != 4)) && printf("usage: %s %s\n", av[0],
-			"[mandelbrot | julia | burningship | spiral] [width height]"))
-		return (0);
+	if (!d.fl || (ac != 2 && ac != 4) || (ac == 4 && ft_atoui_p(av[2], &d.s.x)
+			+ ft_atoui_p(av[3], &d.s.y) + (d.s.x > 1920 || d.s.y > 1920)))
+		return (printf("usage: %s %s\n", av[0], T_U1 T_U2) * 0);
 	if (!init(ac, av, &d))
 		f_exit(&d);
 	mlx_hook(d.win, XE_KPRE, XM_KPRE, &f_kpre, &d);

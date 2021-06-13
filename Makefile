@@ -14,7 +14,7 @@ DEPS = $(SRCS:.c=.d)
 RM = rm -f
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-INCS = -I./ -I$(LMLXPATH)
+INCS = -I./incs -I$(LMLXPATH)
 LFT = 
 
 ifeq ($(shell uname), Darwin)

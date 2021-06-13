@@ -56,20 +56,21 @@ int	init(int ac, char **av, t_all *d)
 	errno = 0;
 	d->func = (t_func[]){c_mandelbrot, c_julia, c_burning, c_spiral}[d->fl - 1];
 	d->ac = ac;
-	if (ac == 2 || ft_atoi_p(av[2], &d->s.x) || ft_atoi_p(av[3], &d->s.y))
+	if (ac == 2)
 		d->s = (t_ivec){WIDTH, HEIGHT, 0};
-	d->c = (t_vec){d->s.x / DEFAULT / -2, d->s.y / DEFAULT / -2, DEFAULT};
+	d->img.s = d->s;
+	d->c = (t_vec){d->s.x / -2. / DEFAULT, d->s.y / -2. / DEFAULT, DEFAULT};
 	d->clr = (t_vec){0, 0, 0};
 	d->key = (t_vec){1, 0, 0};
 	d->ini = (t_vec){-0.8 * (d->fl == julia) + 0.1 * (d->fl == spiral),
 		0.15 * (d->fl == julia) + 0.1 * (d->fl == spiral), DEFAULT};
 	d->n = d->ini;
-	d->img.s = d->s;
 	d->mlx = mlx_init();
 	d->win = mlx_new_window(d->mlx, d->s.x, d->s.y, av[0]);
 	d->img.img = mlx_new_image(d->mlx, d->img.s.x, d->img.s.y);
-	d->img.d = (int *)mlx_get_data_addr(d->img.img, &d->img.bpp,
-			&d->img.lsz, &d->img.end);
+	d->img.d = (int *)mlx_get_data_addr(d->img.img, &d->img.bpp, &d->img.lsz,
+			&d->img.end);
+	printf(T_H1 T_H2);
 	f_loop(d);
 	return (!!d->mlx);
 }

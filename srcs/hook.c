@@ -6,7 +6,7 @@
 /*   By: snara <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/13 07:04:09 by snara             #+#    #+#             */
-/*   Updated: 2021/06/13 07:07:00 by snara            ###   ########.fr       */
+/*   Updated: 2021/06/13 19:40:43 by snara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	f_kpre(int k, t_all *d)
 					((k == K_J) - (k == K_K)) * 0.0001,
 					(k == K_I) - (k == K_U)}, d->key.x * 10), d->n);
 	else if (d->key.x == 1 && k == K_R)
-		d->c = (t_vec){d->s.x / DEFAULT / -2, d->s.y / DEFAULT / -2, DEFAULT};
+		d->c = (t_vec){d->s.x / -2. / DEFAULT, d->s.y / -2. / DEFAULT, DEFAULT};
 	else if (d->key.x == 0.1 && k == K_R)
 		d->n = d->ini;
 	return (printf("p %d:%f,%f %f%+fi %f\n", k, d->c.x, d->c.y, d->n.x, d->n.y,
@@ -48,6 +48,8 @@ int	f_krel(int k, t_all *d)
 		f_exit(d);
 	else if (k == K_LSH || k == K_RSH)
 		d->key.x = 1.0;
+	else if (k == K_SP)
+		printf(T_H1 T_H2);
 	return (0);
 }
 

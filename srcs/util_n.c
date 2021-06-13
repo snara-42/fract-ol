@@ -6,7 +6,7 @@
 /*   By: subaru <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 17:50:25 by subaru            #+#    #+#             */
-/*   Updated: 2021/06/13 07:58:08 by snara            ###   ########.fr       */
+/*   Updated: 2021/06/13 11:11:25 by snara            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,21 @@ char	*ft_strchr(const char *s, int c)
 	}
 }
 
-int	ft_atoi_p(char *s, int *n)
+int	ft_atoui_p(char *s, int *n)
 {
-	int			m;
 	const int	b = 10;
-	const char	d[] = "013456789";
+	const char	d[] = "0123456789";
 
 	*n = 0;
-	while (ft_strchr("\t\n\v\f\r ",*s))
+	while (ft_strchr("\t\n\v\f\r ", *s))
 		s++;
-	m = (*s == '-');
-	s += (*s == '+' || *s =='-');
 	while (*s)
 	{
 		if (!ft_strchr(d, *s) || (*n > INT_MAX / b)
-			|| (*n == INT_MAX / b && (ft_strchr(d, *s) - d) > INT_MAX % b + m))
+			|| (*n == INT_MAX / b && (ft_strchr(d, *s) - d) > INT_MAX % b))
 			return (1);
 		*n = *n * b + (ft_strchr(d, *s++) - d);
 	}
-	*n *= 1 + (m * -2);
 	return (0);
 }
 
