@@ -1,3 +1,4 @@
 # fract-ol
-`make`
-`./fractol [mandelbrot | julia | burningship | tricorn | spiral] [width height]`
+```make```
+
+```./fractol [mandelbrot | julia | burningship | tricorn | spiral] [width height]```
