@@ -80,7 +80,8 @@ int	f_brel(int b, int x, int y, t_all *d)
 
 int	f_moti(int x, int y, t_all *d)
 {
-	d->n = (t_vec){x / (d->s.x / 4.) - 2, -y / (d->s.y / 4.) + 2, d->n.z};
+	if (d->key.x != 1.0)
+		d->n = (t_vec){x / (d->s.x / 4.) - 2, -y / (d->s.y / 4.) + 2, d->n.z};
 	printf("m %d,%d %f%+fi\n", x, y, d->n.x, d->n.y);
 	f_loop(d);
 	return (0);
