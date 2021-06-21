@@ -144,8 +144,8 @@
 # define DEFAULT 128
 # define ZOOM 2
 # define T_H1 "\e[92mspace: help\narrow: move\nSW: zoom\nAD: color shift\n"
-# define T_H2 "UI: iteration\nHL: real\nJK: imaginary\e[0m\n"
-# define T_U1 "[mandelbrot | julia | burningship | spiral] "
+# define T_H2 "UI: iteration max\nHL: real part\nJK: imaginary part\e[0m\n"
+# define T_U1 "[mandelbrot | julia | burningship | tricorn | spiral] "
 # define T_U2 "[width height (<=1920)]\n"
 
 typedef int	(*t_func)();
